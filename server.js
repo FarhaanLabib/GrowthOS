@@ -12,6 +12,11 @@ app.get('/', (req, res) => {
 
 // Each teammate adds their route file here, one line each:
 app.use('/api/contacts', require('./routes/contacts'));
+app.use('/api/pipelines', require('./routes/pipelines'));
+app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/campaigns', require('./routes/campaigns'));
+app.use('/api/invoices', require('./routes/invoices'));
+app.use('/api/messages', require('./routes/messages'));
 // app.use('/api/pipeline', require('./routes/pipeline'));
 
 const PORT = process.env.PORT || 5000;
