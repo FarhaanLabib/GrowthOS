@@ -43,38 +43,29 @@ function LeadsPage() {
     }
   };
 
-  // Badge Color Logic for Priority / Tags
   const getTagStyle = (tag) => {
     const value = (tag || '').toLowerCase();
 
     if (value.includes('high') || value.includes('urgent') || value.includes('hot')) {
       return {
-        backgroundColor: 'rgba(254, 230, 230, 0.85)',
-        color: '#9b1c1c',
-        border: '1px solid #671b1b'
+        backgroundColor: '#CABBE9',
+        color: '#2A2A2A',
+        border: '1px solid #FFCEF3'
       };
     }
 
     if (value.includes('medium') || value.includes('warm')) {
       return {
-        backgroundColor: 'rgba(254, 236, 220, 0.85)',
-        color: '#9a3412',
-        border: '1px solid #95985b'
-      };
-    }
-
-    if (value.includes('low') || value.includes('cold') || value.includes('not urgent')) {
-      return {
-        backgroundColor: 'rgba(234, 238, 232, 0.85)',
-        color: '#326441',
-        border: '1px solid #1f522c'
+        backgroundColor: '#FFCEF3',
+        color: '#2A2A2A',
+        border: '1px solid #CABBE9'
       };
     }
 
     return {
-      backgroundColor: 'rgba(244, 223, 200, 0.85)',
-      color: '#000000',
-      border: '1px solid #e0c8b0'
+      backgroundColor: '#FDFDFD',
+      color: '#2A2A2A',
+      border: '1px solid #FFCEF3'
     };
   };
 
@@ -82,8 +73,7 @@ function LeadsPage() {
     <div style={{
       minHeight: '100vh',
       width: '100%',
-      // Decorative gradient background to demonstrate the translucent glass blur effect
-      background: 'radial-gradient(circle at 20% 20%, #f7d6c8 0%, #faf6f0 50%, #e3d1be 100%)',
+      backgroundColor: '#FDFDFD',
       padding: '40px 20px',
       boxSizing: 'border-box'
     }}>
@@ -91,19 +81,16 @@ function LeadsPage() {
         maxWidth: '600px',
         margin: '0 auto',
         fontFamily: 'sans-serif',
-        color: '#000000'
+        color: '#2A2A2A'
       }}>
-        {/* Glassmorphism Form Container */}
+        {/* Form Container */}
         <div style={{
-          backgroundColor: 'rgba(244, 234, 224, 0.45)', // Translucent fill
-          backdropFilter: 'blur(12px)',                  // Glass blur / refraction
-          WebkitBackdropFilter: 'blur(12px)',            // Safari support
+          backgroundColor: '#A1EAFB',
           padding: '24px',
           borderRadius: '16px',
-          border: '1px solid rgba(255, 255, 255, 0.6)',  // Light edge highlight
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)'
+          border: '1px solid #FFCEF3'
         }}>
-          <h2 style={{ marginTop: 0, marginBottom: '20px', color: '#000000' }}>Add a Lead</h2>
+          <h2 style={{ marginTop: 0, marginBottom: '20px', color: '#2A2A2A' }}>Add a Lead</h2>
           <form onSubmit={handleSubmit}>
             <input
               placeholder="Name"
@@ -115,9 +102,9 @@ function LeadsPage() {
                 width: '100%',
                 padding: '10px 12px',
                 borderRadius: '6px',
-                border: '1px solid rgba(244, 223, 200, 0.6)',
-                backgroundColor: 'rgba(250, 246, 240, 0.6)',
-                color: '#000000',
+                border: '1px solid #FFCEF3',
+                backgroundColor: '#FDFDFD',
+                color: '#2A2A2A',
                 boxSizing: 'border-box',
                 outline: 'none'
               }}
@@ -132,9 +119,9 @@ function LeadsPage() {
                 width: '100%',
                 padding: '10px 12px',
                 borderRadius: '6px',
-                border: '1px solid rgba(244, 223, 200, 0.6)',
-                backgroundColor: 'rgba(250, 246, 240, 0.6)',
-                color: '#000000',
+                border: '1px solid #FFCEF3',
+                backgroundColor: '#FDFDFD',
+                color: '#2A2A2A',
                 boxSizing: 'border-box',
                 outline: 'none'
               }}
@@ -153,9 +140,9 @@ function LeadsPage() {
                 width: '100%',
                 padding: '10px 12px',
                 borderRadius: '6px',
-                border: '1px solid rgba(244, 223, 200, 0.6)',
-                backgroundColor: 'rgba(250, 246, 240, 0.6)',
-                color: '#000000',
+                border: '1px solid #FFCEF3',
+                backgroundColor: '#FDFDFD',
+                color: '#2A2A2A',
                 boxSizing: 'border-box',
                 outline: 'none'
               }}
@@ -166,7 +153,7 @@ function LeadsPage() {
             </select>
 
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
-              <label style={{ color: '#000000', fontSize: '14px' }}>
+              <label style={{ color: '#2A2A2A', fontSize: '14px' }}>
                 Page Revisits:
               </label>
               <input
@@ -178,30 +165,30 @@ function LeadsPage() {
                   width: '70px',
                   padding: '6px 8px',
                   borderRadius: '6px',
-                  border: '1px solid rgba(244, 223, 200, 0.6)',
-                  backgroundColor: 'rgba(250, 246, 240, 0.6)',
-                  color: '#000000',
+                  border: '1px solid #FFCEF3',
+                  backgroundColor: '#FDFDFD',
+                  color: '#2A2A2A',
                   outline: 'none'
                 }}
               />
             </div>
 
-            <label style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', cursor: 'pointer', color: '#000000', fontSize: '14px' }}>
+            <label style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', cursor: 'pointer', color: '#2A2A2A', fontSize: '14px' }}>
               <input
                 type="checkbox"
                 checked={form.emailOpened}
                 onChange={(e) => setForm({ ...form, emailOpened: e.target.checked })}
-                style={{ marginRight: '8px', accentColor: '#F4DFC8' }}
+                style={{ marginRight: '8px', accentColor: '#CABBE9' }}
               />
               Email Opened
             </label>
 
-            <label style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', cursor: 'pointer', color: '#000000', fontSize: '14px' }}>
+            <label style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', cursor: 'pointer', color: '#2A2A2A', fontSize: '14px' }}>
               <input
                 type="checkbox"
                 checked={form.linkClicked}
                 onChange={(e) => setForm({ ...form, linkClicked: e.target.checked })}
-                style={{ marginRight: '8px', accentColor: '#F4DFC8' }}
+                style={{ marginRight: '8px', accentColor: '#CABBE9' }}
               />
               Link Clicked
             </label>
@@ -213,14 +200,13 @@ function LeadsPage() {
               style={{
                 width: '100%',
                 padding: '12px',
-                backgroundColor: isHovered ? 'rgba(232, 205, 179, 0.9)' : 'rgba(244, 223, 200, 0.8)',
-                color: '#000000',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
+                backgroundColor: isHovered ? '#FFCEF3' : '#CABBE9',
+                color: '#2A2A2A',
+                border: 'none',
                 borderRadius: '8px',
                 fontWeight: 'bold',
                 cursor: 'pointer',
                 transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-                boxShadow: isHovered ? '0 0 15px rgba(244, 223, 200, 0.9)' : 'none',
                 transition: 'all 0.2s ease-in-out'
               }}
             >
@@ -230,36 +216,34 @@ function LeadsPage() {
         </div>
 
         {/* Leads List Section */}
-        <h2 style={{ marginTop: '40px', marginBottom: '16px', color: '#000000' }}>
+        <h2 style={{ marginTop: '40px', marginBottom: '16px', color: '#2A2A2A' }}>
           Leads (sorted by score)
         </h2>
         
         {leads.length === 0 ? (
-          <p style={{ color: '#000000', opacity: 0.6 }}>No leads available.</p>
+          <p style={{ color: '#2A2A2A', opacity: 0.6 }}>No leads available.</p>
         ) : (
           leads.map((lead) => (
             <div
               key={lead._id}
               style={{
-                backgroundColor: 'rgba(244, 234, 224, 0.35)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-                border: '1px solid rgba(21, 19, 19, 0.5)',
+                backgroundColor: '#A1EAFB',
+                border: '1px solid #FFCEF3',
                 padding: '16px',
                 marginBottom: '12px',
                 borderRadius: '10px',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
+                color: '#2A2A2A'
               }}
             >
               <div>
                 <strong style={{ fontSize: '16px' }}>{lead.name}</strong>
               </div>
               <div style={{ fontSize: '14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span>Score: <strong>{lead.score}</strong></span>
+                <span>Score: <strong style={{ color: '#2A2A2A' }}>{lead.score}</strong></span>
                 
-                {/* Dynamic Priority Tag Badge */}
                 <span style={{
                   padding: '4px 10px',
                   borderRadius: '12px',
