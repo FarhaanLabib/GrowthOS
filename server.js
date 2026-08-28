@@ -19,6 +19,7 @@ app.use('/api/invoices', require('./routes/invoices'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/leads', require('./routes/leadScoring'));
 app.use('/api/pages', require('./routes/pages'));
+app.use('/api/inbox', require('./routes/inbox'));
 // app.use('/api/pipeline', require('./routes/pipeline'));
 
 const PORT = process.env.PORT || 5000;

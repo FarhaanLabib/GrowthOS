@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import PageBuilder from './pages/PageBuilder';
 import PublicPage from './pages/PublicPage';
 import LeadsPage from './pages/LeadsPage';
+import InboxPage from './pages/InboxPage';
 
-// Simple navigation bar
+// Navigation link button styling
 const navLinkStyle = {
   color: '#2A2A2A',
   textDecoration: 'none',
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <div style={{ backgroundColor: '#FDFDFD', minHeight: '100vh', fontFamily: 'sans-serif' }}>
         
+        {/* Navigation Bar */}
         <nav style={{
           backgroundColor: '#A1EAFB',
           padding: '16px 24px',
@@ -33,13 +35,17 @@ function App() {
           </span>
           <Link to="/" style={navLinkStyle}>Page Builder</Link>
           <Link to="/leads" style={navLinkStyle}>Leads</Link>
+          <Link to="/inbox" style={navLinkStyle}>Inbox</Link>
         </nav>
 
+        {/* Page Routing */}
         <Routes>
           <Route path="/" element={<PageBuilder />} />
           <Route path="/leads" element={<LeadsPage />} />
+          <Route path="/inbox" element={<InboxPage />} />
           <Route path="/p/:slug" element={<PublicPage />} />
         </Routes>
+
       </div>
     </BrowserRouter>
   );
