@@ -32,11 +32,11 @@ app.use('/api/documents', require('./routes/documents'));
 
 
 // app.use('/api/pipeline', require('./routes/pipeline'));
-app.use('/api/my-bookings', require('./routes/myBookings'));   // F-06: Appointment Engine
-app.use('/api/my-contacts', require('./routes/myContacts'));   // F-07: Core CRM & Pipeline Management
-app.use('/api/my-reviews', require('./routes/myReviews'));     // F-08: Review Automation
-app.use('/api/my-campaigns', require('./routes/myCampaigns')); // F-09: Email Marketing Engine
-app.use('/api/my-messages', require('./routes/myMessages'));   // F-10: Two-Way SMS Marketing
+app.use('/api/my-bookings', require('./routes/myBookings'));   
+app.use('/api/my-contacts', require('./routes/myContacts'));   
+app.use('/api/my-reviews', require('./routes/myReviews'));     
+app.use('/api/my-campaigns', require('./routes/myCampaigns')); 
+app.use('/api/my-messages', require('./routes/myMessages'));  
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
