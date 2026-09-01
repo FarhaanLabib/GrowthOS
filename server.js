@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   res.send('GrowthOS backend is running');
 });
 
-// Each teammate adds their route file here, one line each:
+
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/pipelines', require('./routes/pipelines'));
 app.use('/api/bookings', require('./routes/bookings'));
@@ -22,7 +22,13 @@ app.use('/api/pages', require('./routes/pages'));
 app.use('/api/inbox', require('./routes/inbox'));
 app.use('/api/sequences', require('./routes/sequences'));
 app.use('/api/ads', require('./routes/ads'));
-// app.use('/api/pipeline', require('./routes/pipeline'));
+
+
+app.use('/api/my-bookings', require('./routes/myBookings'));   // F-06: Appointment Engine
+app.use('/api/my-contacts', require('./routes/myContacts'));   // F-07: Core CRM & Pipeline Management
+app.use('/api/my-reviews', require('./routes/myReviews'));     // F-08: Review Automation
+app.use('/api/my-campaigns', require('./routes/myCampaigns')); // F-09: Email Marketing Engine
+app.use('/api/my-messages', require('./routes/myMessages'));   // F-10: Two-Way SMS Marketing
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
