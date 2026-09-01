@@ -20,6 +20,8 @@ app.use('/api/messages', require('./routes/messages'));
 app.use('/api/leads', require('./routes/leadScoring'));
 app.use('/api/pages', require('./routes/pages'));
 app.use('/api/inbox', require('./routes/inbox'));
+app.use('/api/sequences', require('./routes/sequences'));
+app.use('/api/ads', require('./routes/ads'));
 // app.use('/api/pipeline', require('./routes/pipeline'));
 
 const PORT = process.env.PORT || 5000;

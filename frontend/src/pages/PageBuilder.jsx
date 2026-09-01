@@ -10,10 +10,19 @@ const SECTION_TEMPLATES = {
   faq: { type: 'faq', question: 'Frequently asked question?', answer: 'The answer goes here.' }
 };
 
+const colors = {
+  skyBlue: '#A1EAFB',
+  white: '#FDFDFD',
+  pink: '#FFCEF3',
+  lavender: '#CABBE9'
+};
+
 const panelStyle = {
-  backgroundColor: '#A1EAFB',
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  backdropFilter: 'blur(8px)',
   borderRadius: '16px',
-  border: '1px solid #FFCEF3'
+  border: `1px solid ${colors.pink}`,
+  boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
 };
 
 const inputStyle = {
@@ -22,8 +31,8 @@ const inputStyle = {
   marginBottom: '10px',
   padding: '10px 12px',
   borderRadius: '6px',
-  border: '1px solid #FFCEF3',
-  backgroundColor: '#FDFDFD',
+  border: `1px solid ${colors.pink}`,
+  backgroundColor: colors.white,
   color: '#2A2A2A',
   boxSizing: 'border-box',
   outline: 'none'
@@ -112,7 +121,7 @@ function PageBuilder() {
     }
   };
 
-  const actionButton = (label, onClick, key, color = '#CABBE9') => (
+  const actionButton = (label, onClick, key, color = colors.lavender) => (
     <button
       key={key}
       type="button"
@@ -123,7 +132,7 @@ function PageBuilder() {
         padding: '8px 14px',
         marginRight: '8px',
         marginBottom: '8px',
-        backgroundColor: hoveredBtn === key ? '#FFCEF3' : color,
+        backgroundColor: hoveredBtn === key ? colors.pink : color,
         color: '#2A2A2A',
         border: 'none',
         borderRadius: '8px',
@@ -141,7 +150,7 @@ function PageBuilder() {
     <div style={{
       minHeight: '100vh',
       width: '100%',
-      backgroundColor: '#FDFDFD',
+      backgroundColor: 'transparent',
       padding: '40px 20px',
       boxSizing: 'border-box',
       display: 'flex',
@@ -171,7 +180,7 @@ function PageBuilder() {
             style={{
               width: '100%',
               padding: '8px 14px',
-              backgroundColor: '#CABBE9',
+              backgroundColor: colors.lavender,
               color: '#2A2A2A',
               border: 'none',
               borderRadius: '8px',
@@ -194,9 +203,9 @@ function PageBuilder() {
               marginBottom: '8px',
               borderRadius: '8px',
               cursor: 'pointer',
-              backgroundColor: currentPage?._id === page._id ? '#CABBE9' : '#FDFDFD',
+              backgroundColor: currentPage?._id === page._id ? colors.lavender : colors.white,
               color: '#2A2A2A',
-              border: '1px solid #FFCEF3'
+              border: `1px solid ${colors.pink}`
             }}
           >
             <strong>{page.title}</strong>
@@ -226,8 +235,8 @@ function PageBuilder() {
 
             {(currentPage.sections || []).map((section, index) => (
               <div key={index} style={{
-                backgroundColor: '#FDFDFD',
-                border: '1px solid #FFCEF3',
+                backgroundColor: colors.white,
+                border: `1px solid ${colors.pink}`,
                 padding: '16px',
                 marginBottom: '12px',
                 borderRadius: '10px'
@@ -237,7 +246,7 @@ function PageBuilder() {
                   <div>
                     {actionButton('↑', () => moveSection(index, -1), `up-${index}`)}
                     {actionButton('↓', () => moveSection(index, 1), `down-${index}`)}
-                    {actionButton('✕', () => removeSection(index), `remove-${index}`, '#FFCEF3')}
+                    {actionButton('✕', () => removeSection(index), `remove-${index}`, colors.pink)}
                   </div>
                 </div>
 
@@ -302,7 +311,7 @@ function PageBuilder() {
               </div>
             ))}
 
-            {actionButton('Save Page', savePage, 'save', '#CABBE9')}
+            {actionButton('Save Page', savePage, 'save', colors.lavender)}
           </>
         )}
       </div>

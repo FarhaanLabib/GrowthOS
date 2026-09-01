@@ -2,6 +2,13 @@ import { useState, useEffect } from 'react';
 
 const API_URL = 'http://localhost:5000/api/leads';
 
+const colors = {
+  skyBlue: '#A1EAFB',
+  white: '#FDFDFD',
+  pink: '#FFCEF3',
+  lavender: '#CABBE9'
+};
+
 function LeadsPage() {
   const [leads, setLeads] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
@@ -48,24 +55,24 @@ function LeadsPage() {
 
     if (value.includes('high') || value.includes('urgent') || value.includes('hot')) {
       return {
-        backgroundColor: '#CABBE9',
+        backgroundColor: colors.lavender,
         color: '#2A2A2A',
-        border: '1px solid #FFCEF3'
+        border: `1px solid ${colors.pink}`
       };
     }
 
     if (value.includes('medium') || value.includes('warm')) {
       return {
-        backgroundColor: '#FFCEF3',
+        backgroundColor: colors.pink,
         color: '#2A2A2A',
-        border: '1px solid #CABBE9'
+        border: `1px solid ${colors.lavender}`
       };
     }
 
     return {
-      backgroundColor: '#FDFDFD',
+      backgroundColor: colors.white,
       color: '#2A2A2A',
-      border: '1px solid #FFCEF3'
+      border: `1px solid ${colors.pink}`
     };
   };
 
@@ -73,7 +80,7 @@ function LeadsPage() {
     <div style={{
       minHeight: '100vh',
       width: '100%',
-      backgroundColor: '#FDFDFD',
+      background: `radial-gradient(circle at 20% 20%, ${colors.skyBlue} 0%, ${colors.white} 50%, ${colors.lavender} 100%)`,
       padding: '40px 20px',
       boxSizing: 'border-box'
     }}>
@@ -85,10 +92,12 @@ function LeadsPage() {
       }}>
         {/* Form Container */}
         <div style={{
-          backgroundColor: '#A1EAFB',
+          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+          backdropFilter: 'blur(8px)',
           padding: '24px',
           borderRadius: '16px',
-          border: '1px solid #FFCEF3'
+          border: `1px solid ${colors.pink}`,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
         }}>
           <h2 style={{ marginTop: 0, marginBottom: '20px', color: '#2A2A2A' }}>Add a Lead</h2>
           <form onSubmit={handleSubmit}>
@@ -102,8 +111,8 @@ function LeadsPage() {
                 width: '100%',
                 padding: '10px 12px',
                 borderRadius: '6px',
-                border: '1px solid #FFCEF3',
-                backgroundColor: '#FDFDFD',
+                border: `1px solid ${colors.pink}`,
+                backgroundColor: colors.white,
                 color: '#2A2A2A',
                 boxSizing: 'border-box',
                 outline: 'none'
@@ -119,8 +128,8 @@ function LeadsPage() {
                 width: '100%',
                 padding: '10px 12px',
                 borderRadius: '6px',
-                border: '1px solid #FFCEF3',
-                backgroundColor: '#FDFDFD',
+                border: `1px solid ${colors.pink}`,
+                backgroundColor: colors.white,
                 color: '#2A2A2A',
                 boxSizing: 'border-box',
                 outline: 'none'
@@ -140,8 +149,8 @@ function LeadsPage() {
                 width: '100%',
                 padding: '10px 12px',
                 borderRadius: '6px',
-                border: '1px solid #FFCEF3',
-                backgroundColor: '#FDFDFD',
+                border: `1px solid ${colors.pink}`,
+                backgroundColor: colors.white,
                 color: '#2A2A2A',
                 boxSizing: 'border-box',
                 outline: 'none'
@@ -165,8 +174,8 @@ function LeadsPage() {
                   width: '70px',
                   padding: '6px 8px',
                   borderRadius: '6px',
-                  border: '1px solid #FFCEF3',
-                  backgroundColor: '#FDFDFD',
+                  border: `1px solid ${colors.pink}`,
+                  backgroundColor: colors.white,
                   color: '#2A2A2A',
                   outline: 'none'
                 }}
@@ -178,7 +187,7 @@ function LeadsPage() {
                 type="checkbox"
                 checked={form.emailOpened}
                 onChange={(e) => setForm({ ...form, emailOpened: e.target.checked })}
-                style={{ marginRight: '8px', accentColor: '#CABBE9' }}
+                style={{ marginRight: '8px', accentColor: colors.lavender }}
               />
               Email Opened
             </label>
@@ -188,7 +197,7 @@ function LeadsPage() {
                 type="checkbox"
                 checked={form.linkClicked}
                 onChange={(e) => setForm({ ...form, linkClicked: e.target.checked })}
-                style={{ marginRight: '8px', accentColor: '#CABBE9' }}
+                style={{ marginRight: '8px', accentColor: colors.lavender }}
               />
               Link Clicked
             </label>
@@ -200,7 +209,7 @@ function LeadsPage() {
               style={{
                 width: '100%',
                 padding: '12px',
-                backgroundColor: isHovered ? '#FFCEF3' : '#CABBE9',
+                backgroundColor: isHovered ? colors.pink : colors.lavender,
                 color: '#2A2A2A',
                 border: 'none',
                 borderRadius: '8px',
@@ -227,15 +236,17 @@ function LeadsPage() {
             <div
               key={lead._id}
               style={{
-                backgroundColor: '#A1EAFB',
-                border: '1px solid #FFCEF3',
+                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                backdropFilter: 'blur(8px)',
+                border: `1px solid ${colors.pink}`,
                 padding: '16px',
                 marginBottom: '12px',
                 borderRadius: '10px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                color: '#2A2A2A'
+                color: '#2A2A2A',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
               }}
             >
               <div>
