@@ -1,62 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const EmailCampaign = require('../models/EmailCampaign');
+const connectDB = require('../db');
 
-// POST create/schedule a new campaign
+// POST /api/campaigns - Save and send email campaign
 router.post('/', async (req, res) => {
   try {
-    const campaign = await EmailCampaign.create(req.body);
-    res.status(201).json(campaign);
+    const db = await connectDB();
+    const { title, subject, body, targetSegment } = req.body;
+
+    const campaign = {
+      title,
+      subject,
+      body,
+      targetSegment,
+      status: 'scheduled',
+      stats: { sent: 0, opened: 0, clicked: 0 },
+      createdAt: new Date()
+    };
+
+    const result = await db.collection('email_campaigns').insertOne(campaign);
+    res.json({ success: true, campaignId: result.insertedId });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// GET list all campaigns
+// GET /api/campaigns - List email campaigns
 router.get('/', async (req, res) => {
   try {
-    const campaigns = await EmailCampaign.find().sort({ createdAt: -1 });
+    const db = await connectDB();
+    const campaigns = await db.collection('email_campaigns').find({}).toArray();
     res.json(campaigns);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// GET stats for one campaign
-router.get('/:id/stats', async (req, res) => {
-  try {
-    const campaign = await EmailCampaign.findById(req.params.id);
-    if (!campaign) return res.status(404).json({ error: 'Campaign not found' });
-    res.json(campaign.stats);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// PATCH update stats (call this from your email provider's webhook — open, click, bounce, unsubscribe events)
-router.patch('/:id/stats', async (req, res) => {
-  try {
-    const { field, incrementBy = 1 } = req.body; // field: 'opens' | 'clicks' | 'unsubscribes' | 'bounces' | 'sent'
-    const update = { $inc: { [`stats.${field}`]: incrementBy } };
-    const campaign = await EmailCampaign.findByIdAndUpdate(req.params.id, update, { new: true });
-    if (!campaign) return res.status(404).json({ error: 'Campaign not found' });
-    res.json(campaign);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// PATCH declare the A/B test winner (and auto-set for future sends)
-router.patch('/:id/winner', async (req, res) => {
-  try {
-    const { winningSubject } = req.body;
-    const campaign = await EmailCampaign.findByIdAndUpdate(
-      req.params.id,
-      { winningSubject, status: 'sending' },
-      { new: true }
-    );
-    if (!campaign) return res.status(404).json({ error: 'Campaign not found' });
-    res.json(campaign);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
