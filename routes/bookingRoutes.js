@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connectDB = require('../db');
+const connectDB = require('../config/db'); 
 
 // GET /api/bookings - Fetch all scheduled appointments
 router.get('/', async (req, res) => {

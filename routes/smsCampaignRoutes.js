@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connectDB = require('../db');
+const connectDB = require('../config/db');
 
 // POST /api/messages/sms - Send SMS message
 router.post('/sms', async (req, res) => {

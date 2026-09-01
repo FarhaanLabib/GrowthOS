@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connectDB = require('../db');
+const connectDB = require('../config/db');
 
 // POST /api/campaigns - Save and send email campaign
 router.post('/', async (req, res) => {

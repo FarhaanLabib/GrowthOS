@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connectDB = require('../db');
+const connectDB = require('../config/db');
 
 // POST /api/reviews/request - Send review invite to client
 router.post('/request', async (req, res) => {
