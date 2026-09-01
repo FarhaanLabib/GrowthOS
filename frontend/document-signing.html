@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head><title>Document Signing</title></head>
+<body>
+  <h2>Create a Document</h2>
+  <input id="title" placeholder="Title (e.g. Service Agreement)" />
+  <input id="clientName" placeholder="Client name" />
+  <textarea id="content" placeholder="Document content"></textarea>
+  <button onclick="createDoc()">Send for Signature</button>
+  <p id="docLink"></p>
+
+  <hr>
+  <h2>View / Sign a Document</h2>
+  <input id="docId" placeholder="Document ID" />
+  <button onclick="viewDoc()">View</button>
+  <div id="docView"></div>
+  <input id="signerName" placeholder="Type your name to sign" />
+  <button onclick="signDoc()">Sign</button>
+
+  <script>
+    const API = 'http://localhost:5000/api/documents';
+
+    async function createDoc() {
+      const res = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: document.getElementById('title').value,
+          clientName: document.getElementById('clientName').value,
+          content: document.getElementById('content').value
+        })
+      });
+      const result = await res.json();
+      document.getElementById('docLink').innerText = `Created! Document ID: ${result.insertedId}`;
+    }
+
+    async function viewDoc() {
+      const id = document.getElementById('docId').value;
+      const res = await fetch(`${API}/${id}`);
+      const doc = await res.json();
+      document.getElementById('docView').innerHTML = `
+        <h3>${doc.title}</h3>
+        <p>${doc.content}</p>
+        <p>Status: ${doc.status}</p>
+      `;
+    }
+
+    async function signDoc() {
+      const id = document.getElementById('docId').value;
+      const signedBy = document.getElementById('signerName').value;
+      await fetch(`${API}/${id}/sign`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ signedBy })
+      });
+      viewDoc();
+    }
+  </script>
+</body>
+</html>

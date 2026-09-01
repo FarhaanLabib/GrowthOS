@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>Funnel Builder</title></head>
+<body>
+  <h2>Funnels</h2>
+  <div id="funnelForm">
+    <input id="funnelName" placeholder="Funnel name" />
+    <input id="stepNames" placeholder="Steps, comma separated (e.g. Ad Click, Landing Page, Booking)" />
+    <button onclick="createFunnel()">Create Funnel</button>
+  </div>
+  <div id="funnelList"></div>
+
+  <script>
+    const API = 'http://localhost:5000/api/funnels';
+
+    async function createFunnel() {
+      const name = document.getElementById('funnelName').value;
+      const steps = document.getElementById('stepNames').value.split(',').map(s => ({ name: s.trim(), visitors: 0, progressed: 0 }));
+      await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, steps })
+      });
+      loadFunnels();
+    }
+
+    async function loadFunnels() {
+      const res = await fetch(API);
+      const funnels = await res.json();
+      document.getElementById('funnelList').innerHTML = funnels.map(f => `
+        <h3>${f.name}</h3>
+        <ol>${f.steps.map(s => `<li>${s.name} — Visitors: ${s.visitors || 0}, Progressed: ${s.progressed || 0}</li>`).join('')}</ol>
+      `).join('<hr>');
+    }
+
+    loadFunnels();
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Client Reporting Portal</title></head>
+<body>
+  <h2>Client Portal</h2>
+  <input id="clientId" placeholder="Enter your Client ID" />
+  <button onclick="loadReport()">View My Report</button>
+  <div id="report"></div>
+
+  <script>
+    async function loadReport() {
+      const clientId = document.getElementById('clientId').value;
+      const res = await fetch(`http://localhost:5000/api/client-reports/${clientId}`);
+      const data = await res.json();
+      document.getElementById('report').innerHTML = data.message
+        ? `<p>${data.message}</p>`
+        : `
+          <ul>
+            <li>Ad Spend: $${data.adSpend}</li>
+            <li>Leads Generated: ${data.leadsGenerated}</li>
+            <li>CPL: $${data.cpl}</li>
+            <li>Appointments Booked: ${data.appointmentsBooked}</li>
+            <li>Deals Won: ${data.dealsWon}</li>
+          </ul>
+        `;
+    }
+  </script>
+</body>
+</html>

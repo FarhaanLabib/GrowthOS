@@ -22,6 +22,15 @@ app.use('/api/pages', require('./routes/pages'));
 app.use('/api/inbox', require('./routes/inbox'));
 app.use('/api/sequences', require('./routes/sequences'));
 app.use('/api/ads', require('./routes/ads'));
+
+
+app.use('/api/pixel-events', require('./routes/pixelTracking'));
+app.use('/api/funnels', require('./routes/funnels'));
+app.use('/api/client-reports', require('./routes/clientReports'));
+app.use('/api/copywriting', require('./routes/copywriting'));
+app.use('/api/documents', require('./routes/documents'));
+
+
 // app.use('/api/pipeline', require('./routes/pipeline'));
 
 const PORT = process.env.PORT || 5000;
