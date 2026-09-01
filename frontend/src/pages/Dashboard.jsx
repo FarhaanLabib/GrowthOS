@@ -30,7 +30,7 @@ function Dashboard() {
           Every growth tool. One platform.
         </h1>
         <p style={{ fontSize: '17px', color: '#555', margin: 0 }}>
-          Lead gen, CRM, messaging, and marketing — built for agencies and growth-focused businesses.
+          Lead gen, CRM, messaging, and marketing - built for agencies and growth-focused businesses.
         </p>
       </div>
 
