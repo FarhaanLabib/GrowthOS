@@ -23,7 +23,6 @@ app.use('/api/inbox', require('./routes/inbox'));
 app.use('/api/sequences', require('./routes/sequences'));
 app.use('/api/ads', require('./routes/ads'));
 
-
 app.use('/api/pixel-events', require('./routes/pixelTracking'));
 app.use('/api/funnels', require('./routes/funnels'));
 app.use('/api/client-reports', require('./routes/clientReports'));
@@ -31,12 +30,11 @@ app.use('/api/copywriting', require('./routes/copywriting'));
 app.use('/api/documents', require('./routes/documents'));
 
 
-// app.use('/api/pipeline', require('./routes/pipeline'));
-app.use('/api/my-bookings', require('./routes/myBookings'));   // F-06: Appointment Engine
-app.use('/api/my-contacts', require('./routes/myContacts'));   // F-07: Core CRM & Pipeline Management
-app.use('/api/my-reviews', require('./routes/myReviews'));     // F-08: Review Automation
-app.use('/api/my-campaigns', require('./routes/myCampaigns')); // F-09: Email Marketing Engine
-app.use('/api/my-messages', require('./routes/myMessages'));   // F-10: Two-Way SMS Marketing
+app.use('/api/booking-routes', require('./routes/bookingRoutes'));
+app.use('/api/contacts-routes', require('./routes/contactsRoutes'));
+app.use('/api/review-routes', require('./routes/reviewRoutes'));
+app.use('/api/email-campaign-routes', require('./routes/emailCampaignRoutes'));
+app.use('/api/sms-campaign-routes', require('./routes/smsCampaignRoutes'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
