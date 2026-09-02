@@ -11,6 +11,11 @@ import EmailCampaigns from './pages/EmailCampaigns';
 import ContactsManager from './pages/ContactsManager';
 import ReviewAutomation from './pages/ReviewAutomation';
 import BookingEngine from './pages/BookingEngine';
+import PixelTracking from './pages/PixelTracking'; 
+import FunnelBuilder from './pages/FunnelBuilder'; 
+import ClientPortal from './pages/ClientPortal'; 
+import CopywritingAssistant from './pages/CopywritingAssistant'; 
+import DocumentSigning from './pages/DocumentSigning';
 
 const colors = {
   skyBlue: '#A1EAFB',
@@ -64,6 +69,11 @@ function App() {
           <Link to="/contacts" style={navLinkStyle}>Contacts</Link>
           <Link to="/reviews" style={navLinkStyle}>Reviews</Link>
           <Link to="/bookings" style={navLinkStyle}>Bookings</Link>
+          <Link to="/pixel-tracking" style={navLinkStyle}>Pixel Tracking</Link> 
+          <Link to="/funnels" style={navLinkStyle}>Funnels</Link> 
+          <Link to="/client-portal" style={navLinkStyle}>Client Portal</Link> 
+          <Link to="/copywriting" style={navLinkStyle}>Copywriting</Link> 
+          <Link to="/documents" style={navLinkStyle}>Documents</Link>
         </nav>
 
         {/* Page Routing */}
@@ -79,6 +89,12 @@ function App() {
           <Route path="/contacts" element={<ContactsManager />} />
           <Route path="/reviews" element={<ReviewAutomation />} />
           <Route path="/bookings" element={<BookingEngine />} />
+          <Route path="/pixel-tracking" element={<PixelTracking />} /> 
+          <Route path="/funnels" element={<FunnelBuilder />} /> 
+          <Route path="/client-portal" element={<ClientPortal />} /> 
+          <Route path="/copywriting" element={<CopywritingAssistant />} /> 
+          <Route path="/documents" element={<DocumentSigning />} />
+          
           <Route path="/p/:slug" element={<PublicPage />} />
         </Routes>
 
