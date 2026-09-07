@@ -14,11 +14,16 @@ const mockCampaigns = [
 // GET /api/ads/performance
 router.get('/performance', async (req, res) => {
   try {
-    const db = await connectDB();
-    
-    let connections = await db.collection('ad_connections').findOne({ userId: 'default' });
-    if (!connections) {
-      connections = { userId: 'default', Meta: true, Google: true, TikTok: true };
+    let connections = { userId: 'default', Meta: true, Google: true, TikTok: true };
+
+    // MongoDB is optional for the demo dashboard. If the database is unavailable,
+    // keep the dashboard working with the default mock connection state.
+    try {
+      const db = await connectDB();
+      const savedConnections = await db.collection('ad_connections').findOne({ userId: 'default' });
+      if (savedConnections) connections = savedConnections;
+    } catch (dbError) {
+      console.warn('Ads dashboard: MongoDB unavailable, using default data:', dbError.message);
     }
 
     const activeCampaigns = mockCampaigns.filter(c => connections[c.platform]);
@@ -55,16 +60,25 @@ router.get('/performance', async (req, res) => {
 // POST /api/ads/toggle-connection
 router.post('/toggle-connection', async (req, res) => {
   try {
-    const db = await connectDB();
-    const { platform, status } = req.body;
+    const { platform, status } = req.body || {};
+    const allowedPlatforms = ['Meta', 'Google', 'TikTok'];
+    if (!allowedPlatforms.includes(platform) || typeof status !== 'boolean') {
+      return res.status(400).json({ error: 'Invalid platform or status' });
+    }
 
-    await db.collection('ad_connections').updateOne(
-      { userId: 'default' },
-      { $set: { [platform]: status } },
-      { upsert: true }
-    );
+    try {
+      const db = await connectDB();
+      await db.collection('ad_connections').updateOne(
+        { userId: 'default' },
+        { $set: { [platform]: status } },
+        { upsert: true }
+      );
+    } catch (dbError) {
+      // Keep the UI responsive even when MongoDB is not configured.
+      console.warn('Ads dashboard: could not persist connection state:', dbError.message);
+    }
 
-    res.json({ message: `${platform} connection updated to ${status}` });
+    res.json({ message: `${platform} connection updated to ${status}`, platform, status });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

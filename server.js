@@ -10,6 +10,10 @@ app.get('/', (req, res) => {
   res.send('GrowthOS backend is running');
 });
 
+app.get('/api/health', (req, res) => {
+  res.json({ ok: true, service: 'GrowthOS API' });
+});
+
 
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/pipelines', require('./routes/pipelines'));
@@ -37,10 +41,10 @@ app.use('/api/email-campaign-routes', require('./routes/emailCampaignRoutes'));
 app.use('/api/sms-campaign-routes', require('./routes/smsCampaignRoutes'));
 
 // F-16 to F-20
-app.use('/api/automations', require('./routes/automations'));
-app.use('/api/blog', require('./routes/blog'));
+app.use('/api/automations', require('./routes/automation'));
+app.use('/api/blog', require('./routes/website_blog'));
 app.use('/api/team', require('./routes/team'));
-app.use('/api/webhooks', require('./routes/webhooks'));
+app.use('/api/webhooks', require('./routes/webhook'));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));

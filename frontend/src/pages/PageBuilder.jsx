@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { apiUrl, requestJson } from '../lib/api';
 
-const API_URL = 'http://localhost:5000/api/pages';
+const API_URL = apiUrl('/pages');
 
 const SECTION_TEMPLATES = {
   hero: { type: 'hero', heading: 'Your Headline Here', subheading: 'Your subheading here' },
@@ -44,14 +45,20 @@ function PageBuilder() {
   const [newTitle, setNewTitle] = useState('');
   const [newSlug, setNewSlug] = useState('');
   const [hoveredBtn, setHoveredBtn] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const fetchPages = async () => {
     try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      setPages(data);
+      setLoading(true);
+      setError('');
+      const data = await requestJson(API_URL);
+      setPages(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to fetch pages:', err);
+      setError(err.message || 'Unable to load pages.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,12 +71,11 @@ function PageBuilder() {
     if (!newTitle.trim() || !newSlug.trim()) return;
 
     try {
-      const res = await fetch(API_URL, {
+      const created = await requestJson(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: newTitle, slug: newSlug })
       });
-      const created = await res.json();
       setNewTitle('');
       setNewSlug('');
       await fetchPages();
@@ -109,10 +115,10 @@ function PageBuilder() {
   const savePage = async () => {
     if (!currentPage?._id) return;
     try {
-      await fetch(`${API_URL}/${currentPage._id}`, {
+      await requestJson(`${API_URL}/${currentPage._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sections: currentPage.sections })
+        body: JSON.stringify({ sections: currentPage.sections || [] })
       });
       alert('Page saved!');
       fetchPages();
@@ -194,7 +200,9 @@ function PageBuilder() {
           </button>
         </form>
 
-        {pages.map((page) => (
+        {loading && <p style={{ opacity: 0.7 }}>Loading pages...</p>}
+        {error && <p style={{ color: '#b42318', fontSize: '13px' }}>{error}</p>}
+        {!loading && pages.map((page) => (
           <div
             key={page._id}
             onClick={() => setCurrentPage(page)}

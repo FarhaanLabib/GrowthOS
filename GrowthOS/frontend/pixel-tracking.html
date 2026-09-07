@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head><title>Pixel Tracking & Health</title></head>
+<body>
+  <h2>Pixel Event Log</h2>
+  <form id="eventForm">
+    <input id="eventName" placeholder="Event name (e.g. Purchase)" required />
+    <select id="source">
+      <option value="browser">Browser Pixel</option>
+      <option value="capi">CAPI</option>
+    </select>
+    <input id="contactId" placeholder="Contact ID (optional)" />
+    <button type="submit">Simulate Event</button>
+  </form>
+  <table border="1" id="eventTable">
+    <tr><th>Event</th><th>Source</th><th>Match Quality</th><th>Duplicate?</th><th>Received</th></tr>
+  </table>
+
+  <script>
+    const API = 'http://localhost:5000/api/pixel-events';
+
+    async function loadEvents() {
+      const res = await fetch(API);
+      const events = await res.json();
+      const table = document.getElementById('eventTable');
+      table.innerHTML = '<tr><th>Event</th><th>Source</th><th>Match Quality</th><th>Duplicate?</th><th>Received</th></tr>';
+      events.forEach(e => {
+        table.innerHTML += `<tr><td>${e.eventName}</td><td>${e.source}</td><td>${e.matchQuality}</td><td>${e.duplicate}</td><td>${new Date(e.receivedAt).toLocaleString()}</td></tr>`;
+      });
+    }
+
+    document.getElementById('eventForm').addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventName: document.getElementById('eventName').value,
+          source: document.getElementById('source').value,
+          contactId: document.getElementById('contactId').value || null
+        })
+      });
+      ev.target.reset();
+      loadEvents();
+    });
+
+    loadEvents();
+  </script>
+</body>
+</html>

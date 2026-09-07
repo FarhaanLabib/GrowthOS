@@ -1,34 +1,42 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { apiUrl, requestJson } from '../lib/api';
 
-const API_URL = 'http://localhost:5000/api/pages';
-
-function getSlugFromURL() {
-  const parts = window.location.pathname.split('/');
-  return parts[parts.length - 1];
-}
+const API_URL = apiUrl('/pages');
 
 function PublicPage() {
   const [page, setPage] = useState(null);
   const [formData, setFormData] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [error, setError] = useState('');
+  const { slug } = useParams();
 
   useEffect(() => {
-    const slug = getSlugFromURL();
-    fetch(`${API_URL}/public/${slug}`)
-      .then((res) => res.json())
-      .then((data) => setPage(data));
-  }, []);
+    let active = true;
+    setError('');
+    requestJson(`${API_URL}/public/${encodeURIComponent(slug)}`)
+      .then((data) => {
+        if (active) setPage(data);
+      })
+      .catch((err) => {
+        if (active) setError(err.message || 'Unable to load this page.');
+      });
+    return () => { active = false; };
+  }, [slug]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const slug = getSlugFromURL();
-    await fetch(`${API_URL}/public/${slug}/submit`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
-    setSubmitted(true);
+    try {
+      await requestJson(`${API_URL}/public/${encodeURIComponent(slug)}/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message || 'Unable to submit the form.');
+    }
   };
 
   if (!page) {
@@ -42,7 +50,7 @@ function PublicPage() {
         fontFamily: 'sans-serif',
         color: '#2A2A2A'
       }}>
-        <p>Loading...</p>
+        <p>{error || 'Loading...'}</p>
       </div>
     );
   }
@@ -58,7 +66,7 @@ function PublicPage() {
       color: '#2A2A2A'
     }}>
       <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-        {page.sections.map((section, index) => {
+        {(page.sections || []).map((section, index) => {
 
           if (section.type === 'hero') {
             return (
@@ -187,7 +195,7 @@ function PublicPage() {
                 borderRadius: '16px',
                 border: '1px solid #FFCEF3'
               }}>
-                {section.fields.map((fieldName) => (
+                {(section.fields || []).map((fieldName) => (
                   <input
                     key={fieldName}
                     placeholder={fieldName}

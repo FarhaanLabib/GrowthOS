@@ -1,101 +1,115 @@
 import { Link } from 'react-router-dom';
 
-const colors = {
-  skyBlue: '#A1EAFB',
-  white: '#FDFDFD',
-  pink: '#FFCEF3',
-  lavender: '#CABBE9'
-};
-
 const features = [
-  { name: 'Lead Capture Pages', code: 'F-01', path: '/pages', desc: 'Build high-converting landing pages, no code needed.', emoji: '🧲' },
-  { name: 'Lead Qualification', code: 'F-02', path: '/leads', desc: 'Automatic scoring so your team calls the hottest leads first.', emoji: '🎯' },
-  { name: 'Omnichannel Inbox', code: 'F-03', path: '/inbox', desc: 'Every conversation, every channel, one inbox.', emoji: '💬' },
-  { name: 'Follow-Up Sequences', code: 'F-04', path: '/sequences', desc: 'Automated multi-step outreach that never lets a lead go cold.', emoji: '⏱️' },
-  { name: 'Ad Performance Dashboard', code: 'F-05', path: '/ads', desc: 'Meta, Google, and TikTok ad results in one live view.', emoji: '📊' },
-  { name: 'Appointment Booking', code: 'F-06', path: '/bookings', desc: 'Let leads self-schedule straight into your calendar.', emoji: '📅' },
-  { name: 'Core CRM', code: 'F-07', path: '/contacts', desc: 'Track every contact and deal in one pipeline.', emoji: '🗂️' },
-  { name: 'Review Automation', code: 'F-08', path: '/reviews', desc: 'Turn happy customers into 5-star public reviews.', emoji: '⭐' },
-  { name: 'Email Marketing', code: 'F-09', path: '/email', desc: 'Build and send campaigns that convert your list.', emoji: '✉️' },
-  { name: 'SMS Marketing', code: 'F-10', path: '/sms', desc: 'Two-way text campaigns with near-instant open rates.', emoji: '📱' },
-  { name: 'Pixel Tracking & Health', code: 'F-11', path: '/pixel-tracking', desc: 'Catch broken tracking before it costs you attribution.', emoji: '📡' },
-  { name: 'Funnel Builder', code: 'F-12', path: '/funnels', desc: 'Map every step and see exactly where visitors drop off.', emoji: '🔻' },
-  { name: 'Client Reporting Portal', code: 'F-13', path: '/client-portal', desc: 'Give clients a live view into their own results.', emoji: '📈' },
-  { name: 'AI Copywriting Assistant', code: 'F-14', path: '/copywriting', desc: 'Draft on-brand copy in seconds, not hours.', emoji: '✍️' },
-  { name: 'Document & Proposal Signing', code: 'F-15', path: '/documents', desc: 'Send, sign, and track proposals without leaving the app.', emoji: '📝' },
-  { name: 'Invoicing & Payment Collection', code: 'F-16', path: '/invoicing', desc: 'Bill clients and track who has actually paid.', emoji: '💳' },
-  { name: 'Workflow Automation', code: 'F-17', path: '/automations', desc: 'Zapier-style triggers and actions, built right in.', emoji: '⚡' },
-  { name: 'Website & Blog Builder', code: 'F-18', path: '/blog', desc: 'Publish blog content without a separate CMS.', emoji: '🌐' },
-  { name: 'Team & Role Management', code: 'F-19', path: '/team', desc: 'Add teammates and control what each role can do.', emoji: '👥' },
-  { name: 'API & Webhook Hub', code: 'F-20', path: '/webhooks', desc: 'Send and receive events to connect your other tools.', emoji: '🔗' },
+  { name: 'Smart Lead Capture Pages', code: 'F-01', path: '/pages', desc: 'Build high-converting landing pages, no code needed.', emoji: '🎯', tag: 'Acquisition' },
+  { name: 'AI Lead Qualification', code: 'F-02', path: '/leads', desc: 'Automatically score and prioritize the leads most likely to convert.', emoji: '🤖', tag: 'AI' },
+  { name: 'Omnichannel Inbox', code: 'F-03', path: '/inbox', desc: 'Keep conversations from every channel in one timeline.', emoji: '📬', tag: 'CRM' },
+  { name: 'Automated Follow-Up Sequences', code: 'F-04', path: '/sequences', desc: 'Create multi-step follow-up sequences that keep leads moving.', emoji: '⚡', tag: 'Automation' },
+  { name: 'Live Ad Performance Dashboard', code: 'F-05', path: '/ads', desc: 'Monitor campaign performance, CPL, ROAS and pipeline signals.', emoji: '📊', tag: 'Analytics' },
+  { name: 'Appointment Booking Engine', code: 'F-06', path: '/bookings', desc: 'Let prospects book appointments directly into your workflow.', emoji: '🗓️', tag: 'Conversion' },
+  { name: 'CRM Pipeline & Contacts', code: 'F-07', path: '/contacts', desc: 'Manage contacts and keep every opportunity organized.', emoji: '🔁', tag: 'CRM' },
+  { name: 'Review Request Automation', code: 'F-08', path: '/reviews', desc: 'Automate review requests and turn happy customers into social proof.', emoji: '💬', tag: 'Reputation' },
+  { name: 'Email Marketing Suite', code: 'F-09', path: '/email', desc: 'Create, schedule and track email marketing campaigns.', emoji: '📧', tag: 'Email' },
+  { name: 'SMS Broadcast & Campaigns', code: 'F-10', path: '/sms', desc: 'Send and manage SMS outreach from one place.', emoji: '📱', tag: 'SMS' },
+  { name: 'Conversion Tracking & Pixel Health', code: 'F-11', path: '/pixel-tracking', desc: 'Monitor conversion events and identify tracking issues.', emoji: '🔔', tag: 'Tracking' },
+  { name: 'Funnel Builder', code: 'F-12', path: '/funnels', desc: 'Map and build multi-step customer journeys visually.', emoji: '🧩', tag: 'Conversion' },
+  { name: 'Client Reporting Portal', code: 'F-13', path: '/client-portal', desc: 'Give clients a live, branded view of their results.', emoji: '🖥️', tag: 'Agency' },
+  { name: 'AI Copywriting Assistant', code: 'F-14', path: '/copywriting', desc: 'Generate campaign and marketing copy in seconds.', emoji: '✍️', tag: 'AI' },
+  { name: 'Document & Proposal Signing', code: 'F-15', path: '/documents', desc: 'Send, sign and track proposals without leaving GrowthOS.', emoji: '📝', tag: 'Operations' },
+  { name: 'Invoicing & Payment Collection', code: 'F-16', path: '/invoicing', desc: 'Create invoices and track payment status.', emoji: '💳', tag: 'Finance' },
+  { name: 'Workflow Automation', code: 'F-17', path: '/automations', desc: 'Connect triggers and actions to automate repetitive work.', emoji: '⚙️', tag: 'Automation' },
+  { name: 'Website & Blog Builder', code: 'F-18', path: '/blog', desc: 'Create and publish website and blog content.', emoji: '🌐', tag: 'Content' },
+  { name: 'Team & Role Management', code: 'F-19', path: '/team', desc: 'Manage teammates and their roles from one workspace.', emoji: '👥', tag: 'Team' },
+  { name: 'API & Webhook Hub', code: 'F-20', path: '/webhooks', desc: 'Connect GrowthOS to external systems with webhooks.', emoji: '🔗', tag: 'Integrations' },
 ];
 
-function Dashboard() {
+const featureByPath = Object.fromEntries(features.map((feature) => [feature.path, feature]));
+
+function FeatureCard({ feature }) {
   return (
-    <div style={{ padding: '60px 20px 100px' }}>
-
-      {/* Hero */}
-      <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 60px' }}>
-        <h1 style={{ fontSize: '42px', margin: '0 0 12px 0', color: '#2A2A2A' }}>
-          Every growth tool. One platform.
-        </h1>
-        <p style={{ fontSize: '17px', color: '#555', margin: 0 }}>
-          Lead gen, CRM, messaging, and marketing - built for agencies and growth-focused businesses.
-        </p>
+    <Link className="feature-card" to={feature.path}>
+      <div className="feature-card-top">
+        <span className="feature-num">{feature.code}</span>
+        <span className="feature-icon" aria-hidden="true">{feature.emoji}</span>
       </div>
-
-      {/* Horizontal scroll row of feature cards */}
-      <div style={{
-        display: 'flex',
-        gap: '20px',
-        overflowX: 'auto',
-        padding: '10px 20px 30px',
-        scrollSnapType: 'x mandatory'
-      }}>
-        {features.map((f) => (
-          <Link
-            key={f.path}
-            to={f.path}
-            style={{
-              scrollSnapAlign: 'start',
-              flex: '0 0 260px',
-              textDecoration: 'none',
-              color: '#2A2A2A',
-              backgroundColor: 'rgba(255, 255, 255, 0.55)',
-              backdropFilter: 'blur(14px)',
-              WebkitBackdropFilter: 'blur(14px)',
-              border: '1px solid rgba(255, 255, 255, 0.7)',
-              borderRadius: '20px',
-              padding: '28px 22px',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-              display: 'block'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-6px)';
-              e.currentTarget.style.boxShadow = '0 14px 40px rgba(0,0,0,0.12)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.08)';
-            }}
-          >
-            <div style={{ fontSize: '32px', marginBottom: '14px' }}>{f.emoji}</div>
-            <div style={{ fontSize: '11px', fontWeight: 'bold', letterSpacing: '1px', opacity: 0.5, marginBottom: '4px' }}>
-              {f.code}
-            </div>
-            <h3 style={{ margin: '0 0 10px 0', fontSize: '18px' }}>{f.name}</h3>
-            <p style={{ margin: 0, fontSize: '13px', opacity: 0.75, lineHeight: '1.5' }}>{f.desc}</p>
-          </Link>
-        ))}
-      </div>
-
-      {/* Small hint below the scroll row */}
-      <p style={{ textAlign: 'center', fontSize: '13px', opacity: 0.5, marginTop: '10px' }}>
-        ← scroll to see all 20 features →
-      </p>
-    </div>
+      <h3>{feature.name}</h3>
+      <p>{feature.desc}</p>
+      <span className="feature-tag">{feature.tag}</span>
+      <span className="feature-open">Open feature →</span>
+    </Link>
   );
 }
 
+function Dashboard() {
+  return (
+    <main className="landing">
+      <section className="hero" id="top">
+        <div className="hero-bg" />
+        <div className="hero-content">
+          <span className="hero-eyebrow">The All-in-One Business Growth Platform</span>
+          <h1>Stop <s>guessing</s>.<br />Start <em>growing.</em></h1>
+          <p className="hero-sub">
+            GrowthOS brings lead capture, CRM, messaging, marketing, automation,
+            reporting and operations into one connected workspace.
+          </p>
+          <div className="hero-actions">
+            <Link className="btn-primary" to="/pages">Get Started Free →</Link>
+            <a className="btn-secondary" href="#features">Explore All Features</a>
+          </div>
+          <div className="hero-stats">
+            <div><strong>20</strong><span>Connected growth tools</span></div>
+            <div><strong>1</strong><span>Unified workspace</span></div>
+            <div><strong>24/7</strong><span>Automated follow-up</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="features-section" id="features">
+        <div className="section-heading center">
+          <div className="section-label">20 Core Features</div>
+          <h2>Everything your business needs, connected.</h2>
+          <p>Every card below is a real frontend route into the corresponding GrowthOS feature.</p>
+        </div>
+        <div className="features-grid">
+          {features.map((feature) => <FeatureCard key={feature.path} feature={feature} />)}
+        </div>
+      </section>
+
+      <section className="how-section" id="how">
+        <div className="section-heading center">
+          <div className="section-label">How It Works</div>
+          <h2>One platform. One workflow.</h2>
+          <p>Move from acquisition to conversion, retention and reporting without switching tools.</p>
+        </div>
+        <div className="steps">
+          <div className="step"><b>01</b><h3>Capture</h3><p>Build pages, collect leads and track every conversion.</p></div>
+          <div className="step"><b>02</b><h3>Convert</h3><p>Qualify leads, manage the pipeline and book appointments.</p></div>
+          <div className="step"><b>03</b><h3>Engage</h3><p>Use inbox, email, SMS, sequences and reviews to keep customers moving.</p></div>
+          <div className="step"><b>04</b><h3>Scale</h3><p>Automate operations, report results and connect external systems.</p></div>
+        </div>
+      </section>
+
+      <section className="cta-strip">
+        <h2>Ready to run your growth stack from one place?</h2>
+        <p>Start with any feature above. Every feature is now directly reachable from the homepage.</p>
+        <Link className="btn-white" to="/pages">Open GrowthOS →</Link>
+      </section>
+
+      <footer className="landing-footer">
+        <div>
+          <strong>Growth<span>OS</span></strong>
+          <p>The connected business growth platform.</p>
+        </div>
+        <div className="footer-links">
+          <a href="#top">Home</a>
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <Link to="/pages">Get started</Link>
+        </div>
+      </footer>
+    </main>
+  );
+}
+
+export { featureByPath };
 export default Dashboard;

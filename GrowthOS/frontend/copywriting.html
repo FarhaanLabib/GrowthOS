@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><title>AI Copywriting Assistant</title></head>
+<body>
+  <h2>Copywriting Assistant</h2>
+  <input id="businessType" placeholder="Business type (e.g. plumbing)" />
+  <input id="offer" placeholder="Offer (e.g. free inspection)" />
+  <input id="audience" placeholder="Audience (e.g. homeowners)" />
+  <select id="tone">
+    <option>Professional</option><option>Casual</option><option>Urgent</option><option>Friendly</option><option>Bold</option>
+  </select>
+  <button onclick="generate()">Generate 3 Variations</button>
+  <ul id="results"></ul>
+
+  <script>
+    async function generate() {
+      const body = {
+        businessType: document.getElementById('businessType').value,
+        offer: document.getElementById('offer').value,
+        audience: document.getElementById('audience').value,
+        tone: document.getElementById('tone').value
+      };
+      const res = await fetch('http://localhost:5000/api/copywriting/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      document.getElementById('results').innerHTML = data.variations.map(v => `<li>${v}</li>`).join('');
+    }
+  </script>
+</body>
+</html>

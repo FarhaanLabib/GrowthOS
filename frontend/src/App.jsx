@@ -11,82 +11,38 @@ import EmailCampaigns from './pages/EmailCampaigns';
 import ContactsManager from './pages/ContactsManager';
 import ReviewAutomation from './pages/ReviewAutomation';
 import BookingEngine from './pages/BookingEngine';
-import PixelTracking from './pages/PixelTracking'; 
-import FunnelBuilder from './pages/FunnelBuilder'; 
-import ClientPortal from './pages/ClientPortal'; 
-import CopywritingAssistant from './pages/CopywritingAssistant'; 
+import PixelTracking from './pages/PixelTracking';
+import FunnelBuilder from './pages/FunnelBuilder';
+import ClientPortal from './pages/ClientPortal';
+import CopywritingAssistant from './pages/CopywritingAssistant';
 import DocumentSigning from './pages/DocumentSigning';
 import Invoicing from './pages/Invoicing';
 import Automations from './pages/Automations';
 import BlogBuilder from './pages/BlogBuilder';
 import TeamManagement from './pages/TeamManagement';
 import WebhookHub from './pages/WebhookHub';
+import './App.css';
 
-const colors = {
-  skyBlue: '#A1EAFB',
-  white: '#FDFDFD',
-  pink: '#FFCEF3',
-  lavender: '#CABBE9'
-};
-
-const navLinkStyle = {
-  color: '#2A2A2A',
-  textDecoration: 'none',
-  padding: '8px 16px',
-  borderRadius: '8px',
-  backgroundColor: colors.lavender,
-  border: `1px solid ${colors.pink}`,
-  fontWeight: 'bold',
-  fontSize: '14px'
-};
+const navItems = [
+  ['/pages', 'Pages'], ['/leads', 'Leads'], ['/inbox', 'Inbox'], ['/sequences', 'Sequences'],
+  ['/ads', 'Ads'], ['/sms', 'SMS'], ['/email', 'Email'], ['/contacts', 'Contacts'],
+  ['/reviews', 'Reviews'], ['/bookings', 'Bookings'], ['/pixel-tracking', 'Tracking'],
+  ['/funnels', 'Funnels'], ['/client-portal', 'Reports'], ['/copywriting', 'Copy'],
+  ['/documents', 'Documents'], ['/invoicing', 'Invoices'], ['/automations', 'Automation'],
+  ['/blog', 'Blog'], ['/team', 'Team'], ['/webhooks', 'Webhooks'],
+];
 
 function App() {
   return (
     <BrowserRouter>
-      <div style={{
-        background: `radial-gradient(circle at 20% 20%, ${colors.skyBlue} 0%, ${colors.white} 50%, ${colors.lavender} 100%)`,
-        minHeight: '100vh',
-        fontFamily: 'sans-serif'
-      }}>
-
-        {/* Navigation Bar */}
-        <nav style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.7)',
-          backdropFilter: 'blur(8px)',
-          padding: '16px 24px',
-          borderBottom: `1px solid ${colors.pink}`,
-          display: 'flex',
-          gap: '12px',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
-        }}>
-          <Link to="/" style={{ fontWeight: 'bold', color: '#2A2A2A', marginRight: '16px', fontSize: '18px', textDecoration: 'none' }}>
-            GrowthOS
-          </Link>
-          <Link to="/pages" style={navLinkStyle}>Page Builder</Link>
-          <Link to="/leads" style={navLinkStyle}>Leads</Link>
-          <Link to="/inbox" style={navLinkStyle}>Inbox</Link>
-          <Link to="/sequences" style={navLinkStyle}>Sequences</Link>
-          <Link to="/ads" style={navLinkStyle}>Ad Analytics</Link>
-          <Link to="/sms" style={navLinkStyle}>SMS</Link>
-          <Link to="/email" style={navLinkStyle}>Email</Link>
-          <Link to="/contacts" style={navLinkStyle}>Contacts</Link>
-          <Link to="/reviews" style={navLinkStyle}>Reviews</Link>
-          <Link to="/bookings" style={navLinkStyle}>Bookings</Link>
-          <Link to="/pixel-tracking" style={navLinkStyle}>Pixel Tracking</Link> 
-          <Link to="/funnels" style={navLinkStyle}>Funnels</Link> 
-          <Link to="/client-portal" style={navLinkStyle}>Client Portal</Link> 
-          <Link to="/copywriting" style={navLinkStyle}>Copywriting</Link> 
-          <Link to="/documents" style={navLinkStyle}>Documents</Link>
-          <Link to="/invoicing" style={navLinkStyle}>Invoicing</Link>
-          <Link to="/automations" style={navLinkStyle}>Automations</Link>
-          <Link to="/blog" style={navLinkStyle}>Blog</Link>
-          <Link to="/team" style={navLinkStyle}>Team</Link>
-          <Link to="/webhooks" style={navLinkStyle}>Webhooks</Link>
+      <div className="app-shell">
+        <nav className="app-nav">
+          <Link className="app-brand" to="/">Growth<span>OS</span></Link>
+          <div className="app-nav-links">
+            {navItems.map(([path, label]) => <Link key={path} to={path}>{label}</Link>)}
+          </div>
         </nav>
 
-        {/* Page Routing */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/pages" element={<PageBuilder />} />
@@ -99,20 +55,18 @@ function App() {
           <Route path="/contacts" element={<ContactsManager />} />
           <Route path="/reviews" element={<ReviewAutomation />} />
           <Route path="/bookings" element={<BookingEngine />} />
-          <Route path="/pixel-tracking" element={<PixelTracking />} /> 
-          <Route path="/funnels" element={<FunnelBuilder />} /> 
-          <Route path="/client-portal" element={<ClientPortal />} /> 
-          <Route path="/copywriting" element={<CopywritingAssistant />} /> 
+          <Route path="/pixel-tracking" element={<PixelTracking />} />
+          <Route path="/funnels" element={<FunnelBuilder />} />
+          <Route path="/client-portal" element={<ClientPortal />} />
+          <Route path="/copywriting" element={<CopywritingAssistant />} />
           <Route path="/documents" element={<DocumentSigning />} />
           <Route path="/invoicing" element={<Invoicing />} />
           <Route path="/automations" element={<Automations />} />
           <Route path="/blog" element={<BlogBuilder />} />
           <Route path="/team" element={<TeamManagement />} />
           <Route path="/webhooks" element={<WebhookHub />} />
-          
           <Route path="/p/:slug" element={<PublicPage />} />
         </Routes>
-
       </div>
     </BrowserRouter>
   );

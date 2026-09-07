@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { apiUrl, requestJson } from '../lib/api';
 
-const API_URL = 'http://localhost:5000/api/leads';
+const API_URL = apiUrl('/leads');
 
 const colors = {
   skyBlue: '#A1EAFB',
@@ -12,6 +13,8 @@ const colors = {
 function LeadsPage() {
   const [leads, setLeads] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
     name: '',
     budget: 'low',
@@ -23,11 +26,15 @@ function LeadsPage() {
 
   const fetchLeads = async () => {
     try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      setLeads(data);
+      setLoading(true);
+      setError('');
+      const data = await requestJson(API_URL);
+      setLeads(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to fetch leads:", err);
+      setError(err.message || 'Unable to load leads.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,7 +45,8 @@ function LeadsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch(API_URL, {
+      setError('');
+      await requestJson(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -47,6 +55,7 @@ function LeadsPage() {
       setForm({ name: '', budget: 'low', timeline: 'browsing', pageRevisits: 0, emailOpened: false, linkClicked: false });
     } catch (err) {
       console.error("Failed to submit lead:", err);
+      setError(err.message || 'Unable to add lead.');
     }
   };
 
@@ -229,7 +238,10 @@ function LeadsPage() {
           Leads (sorted by score)
         </h2>
         
-        {leads.length === 0 ? (
+        {error && <p style={{ color: '#b42318' }}>{error}</p>}
+        {loading ? (
+          <p style={{ color: '#2A2A2A', opacity: 0.6 }}>Loading leads...</p>
+        ) : leads.length === 0 ? (
           <p style={{ color: '#2A2A2A', opacity: 0.6 }}>No leads available.</p>
         ) : (
           leads.map((lead) => (
