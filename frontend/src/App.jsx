@@ -16,6 +16,11 @@ import FunnelBuilder from './pages/FunnelBuilder';
 import ClientPortal from './pages/ClientPortal'; 
 import CopywritingAssistant from './pages/CopywritingAssistant'; 
 import DocumentSigning from './pages/DocumentSigning';
+import Invoicing from './pages/Invoicing';
+import Automations from './pages/Automations';
+import BlogBuilder from './pages/BlogBuilder';
+import TeamManagement from './pages/TeamManagement';
+import WebhookHub from './pages/WebhookHub';
 
 const colors = {
   skyBlue: '#A1EAFB',
@@ -74,6 +79,11 @@ function App() {
           <Link to="/client-portal" style={navLinkStyle}>Client Portal</Link> 
           <Link to="/copywriting" style={navLinkStyle}>Copywriting</Link> 
           <Link to="/documents" style={navLinkStyle}>Documents</Link>
+          <Link to="/invoicing" style={navLinkStyle}>Invoicing</Link>
+          <Link to="/automations" style={navLinkStyle}>Automations</Link>
+          <Link to="/blog" style={navLinkStyle}>Blog</Link>
+          <Link to="/team" style={navLinkStyle}>Team</Link>
+          <Link to="/webhooks" style={navLinkStyle}>Webhooks</Link>
         </nav>
 
         {/* Page Routing */}
@@ -94,6 +104,11 @@ function App() {
           <Route path="/client-portal" element={<ClientPortal />} /> 
           <Route path="/copywriting" element={<CopywritingAssistant />} /> 
           <Route path="/documents" element={<DocumentSigning />} />
+          <Route path="/invoicing" element={<Invoicing />} />
+          <Route path="/automations" element={<Automations />} />
+          <Route path="/blog" element={<BlogBuilder />} />
+          <Route path="/team" element={<TeamManagement />} />
+          <Route path="/webhooks" element={<WebhookHub />} />
           
           <Route path="/p/:slug" element={<PublicPage />} />
         </Routes>

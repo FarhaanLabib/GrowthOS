@@ -18,6 +18,16 @@ const features = [
   { name: 'Review Automation', code: 'F-08', path: '/reviews', desc: 'Turn happy customers into 5-star public reviews.', emoji: '⭐' },
   { name: 'Email Marketing', code: 'F-09', path: '/email', desc: 'Build and send campaigns that convert your list.', emoji: '✉️' },
   { name: 'SMS Marketing', code: 'F-10', path: '/sms', desc: 'Two-way text campaigns with near-instant open rates.', emoji: '📱' },
+  { name: 'Pixel Tracking & Health', code: 'F-11', path: '/pixel-tracking', desc: 'Catch broken tracking before it costs you attribution.', emoji: '📡' },
+  { name: 'Funnel Builder', code: 'F-12', path: '/funnels', desc: 'Map every step and see exactly where visitors drop off.', emoji: '🔻' },
+  { name: 'Client Reporting Portal', code: 'F-13', path: '/client-portal', desc: 'Give clients a live view into their own results.', emoji: '📈' },
+  { name: 'AI Copywriting Assistant', code: 'F-14', path: '/copywriting', desc: 'Draft on-brand copy in seconds, not hours.', emoji: '✍️' },
+  { name: 'Document & Proposal Signing', code: 'F-15', path: '/documents', desc: 'Send, sign, and track proposals without leaving the app.', emoji: '📝' },
+  { name: 'Invoicing & Payment Collection', code: 'F-16', path: '/invoicing', desc: 'Bill clients and track who has actually paid.', emoji: '💳' },
+  { name: 'Workflow Automation', code: 'F-17', path: '/automations', desc: 'Zapier-style triggers and actions, built right in.', emoji: '⚡' },
+  { name: 'Website & Blog Builder', code: 'F-18', path: '/blog', desc: 'Publish blog content without a separate CMS.', emoji: '🌐' },
+  { name: 'Team & Role Management', code: 'F-19', path: '/team', desc: 'Add teammates and control what each role can do.', emoji: '👥' },
+  { name: 'API & Webhook Hub', code: 'F-20', path: '/webhooks', desc: 'Send and receive events to connect your other tools.', emoji: '🔗' },
 ];
 
 function Dashboard() {
@@ -82,7 +92,7 @@ function Dashboard() {
 
       {/* Small hint below the scroll row */}
       <p style={{ textAlign: 'center', fontSize: '13px', opacity: 0.5, marginTop: '10px' }}>
-        ← scroll to see all 10 features →
+        ← scroll to see all 20 features →
       </p>
     </div>
   );

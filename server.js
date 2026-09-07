@@ -36,5 +36,11 @@ app.use('/api/review-routes', require('./routes/reviewRoutes'));
 app.use('/api/email-campaign-routes', require('./routes/emailCampaignRoutes'));
 app.use('/api/sms-campaign-routes', require('./routes/smsCampaignRoutes'));
 
+// F-16 to F-20
+app.use('/api/automations', require('./routes/automations'));
+app.use('/api/blog', require('./routes/blog'));
+app.use('/api/team', require('./routes/team'));
+app.use('/api/webhooks', require('./routes/webhooks'));
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
